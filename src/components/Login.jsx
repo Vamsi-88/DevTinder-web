@@ -12,6 +12,7 @@ const Login = () => {
     const[password,setpassword] = useState("Eren@1234");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [error,setError] = useState("");
 
 
     const handleChange = async( ) => {
@@ -26,7 +27,7 @@ const Login = () => {
 
         dispatch(addUser(res.data))
         }catch(err){
-            console.log("error: "+err)
+            setError(err?.response?.data || "something went wrong")
         }
     }
 
@@ -58,6 +59,7 @@ const Login = () => {
             </label>
 
             <div className="card-actions">
+                <p className='text-red-500'>{error}</p>
             <button className="btn btn-primary" onClick={handleChange}>Login</button>
             </div>
         </div>
