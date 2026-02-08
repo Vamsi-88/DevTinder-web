@@ -84,25 +84,37 @@ const EditProfile = ({user}) => {
             value={age} 
             onChange={(e)=>setAge(e.target.value)}/>
             </label>
+
             <label className="form-control w-full max-w-xs text-left">
             <div className="label py-2">
                 <span className="label-text">Gender</span>
             </div>
-            <input type="dropdown" 
-            placeholder="Type here" 
-            className="input input-bordered w-full max-w-xs " 
-            value={gender} 
-            onChange={(e)=>setGender(e.target.value)}/>
+            <select
+                className="select select-bordered w-full max-w-xs"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+            >
+                <option disabled value="">
+                Select gender
+                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
             </label>
+
+
+
             <label className="form-control w-full max-w-xs text-left">
             <div className="label py-2">
                 <span className="label-text">About</span>
             </div>
-            <input type="textarea" 
-            placeholder="Type here" 
-            className="input input-bordered w-full max-w-xs " 
-            value={about} 
-            onChange={(e)=>setAbout(e.target.value)}/>
+            <textarea
+                rows={4}
+                placeholder="Type here"
+                className="textarea textarea-bordered w-full max-w-xs"
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+            />
             </label>
 
             <div className="card-actions">
