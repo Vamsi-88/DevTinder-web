@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-        <footer className="footer flex justify-between items-center bg-base-100 text-base-content p-5  fixed bottom-0">
+        <footer className="footer flex justify-between items-center bg-base-100 text-base-content p-5 sticky bottom-0">
         <aside>
             <svg
             width="20"

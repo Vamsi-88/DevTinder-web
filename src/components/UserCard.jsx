@@ -13,7 +13,7 @@ return (
     {user.age && user.gender && <p>{age +' '+gender}</p>}
     <p>{about}</p>
     <div className="card-actions justify-center my-3">
-      <button className="btn btn-primary">Igonored</button>
+      <button className="btn btn-primary">Ignored</button>
       <button className="btn btn-secondary">Interested</button>
 
     </div>
