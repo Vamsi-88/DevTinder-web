@@ -1,126 +1,132 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addUser } from '../utils/userSlice';
-import { useNavigate } from 'react-router-dom';
-import BASE_URL from '../utils/constants';
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../utils/userSlice'
+import { useNavigate } from 'react-router-dom'
+import BASE_URL from '../utils/constants'
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
-  const [error, setError] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [emailId, setEmailId] = useState('')
+  const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [isLogin, setIsLogin] = useState(false)
+  const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        BASE_URL + "/login",
+        BASE_URL + '/login',
         { emailId, password },
         { withCredentials: true }
-      );
-      dispatch(addUser(res.data.data));
-      navigate("/");
+      )
+      dispatch(addUser(res.data))
+      navigate('/')
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
+      setError(err?.response?.data || 'Something went wrong')
     }
-  };
+  }
 
   const handleSignup = async () => {
     try {
       const res = await axios.post(
-        BASE_URL + "/signup",
+        BASE_URL + '/signup',
         { firstName, lastName, emailId, password },
         { withCredentials: true }
-      );
-      dispatch(addUser(res.data.data));
-      navigate("/profile");
+      )
+      dispatch(addUser(res.data.data))
+      navigate('/profile')
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
+      setError(err?.response?.data || 'Something went wrong')
     }
-  };
+  }
 
   return (
-    <div className="flex justify-center my-10">
-      <div className="card bg-base-100 w-96 shadow-xl">
-        <div className="card-body items-center text-center">
-          <h2 className="card-title">{isLogin ? "Login" : "Signup"}</h2>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0b1220] via-[#111827] to-[#0b1220]">
+      <div className="card w-96 shadow-[0_10px_40px_rgba(0,0,0,0.6)] bg-[#0f172a]/80 backdrop-blur-xl border border-white/10 hover:scale-[1.03] transition-transform duration-300">
+        <div className="card-body items-center text-center text-white">
+          <h2 className="card-title text-2xl font-extrabold tracking-wide mb-4 text-red-400">
+            {isLogin ? 'Login' : 'Signup'}
+          </h2>
 
           {!isLogin && (
             <>
               <label className="form-control w-full max-w-xs text-left">
-                <div className="label py-2">
-                  <span className="label-text">First Name</span>
-                </div>
+                <span className="label-text text-gray-300">First Name</span>
                 <input
                   type="text"
-                  className="input input-bordered w-full max-w-xs"
+                  className="input input-bordered w-full bg-transparent text-white placeholder-gray-400 focus:ring-2 focus:ring-red-400"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Enter first name"
                 />
               </label>
 
               <label className="form-control w-full max-w-xs text-left">
-                <div className="label py-2">
-                  <span className="label-text">Last Name</span>
-                </div>
+                <span className="label-text text-gray-300">Last Name</span>
                 <input
                   type="text"
-                  className="input input-bordered w-full max-w-xs"
+                  className="input input-bordered w-full bg-transparent text-white placeholder-gray-400 focus:ring-2 focus:ring-red-400"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Enter last name"
                 />
               </label>
             </>
           )}
 
           <label className="form-control w-full max-w-xs text-left">
-            <div className="label py-2">
-              <span className="label-text">Email Id</span>
-            </div>
+            <span className="label-text text-gray-300">Email</span>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full bg-transparent text-white placeholder-gray-400 focus:ring-2 focus:ring-red-400"
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
+              placeholder="Enter email"
             />
           </label>
 
-          <label className="form-control w-full max-w-xs text-left">
-            <div className="label py-2">
-              <span className="label-text">Password</span>
-            </div>
+          <label className="form-control w-full max-w-xs text-left relative">
+            <span className="label-text text-gray-300">Password</span>
             <input
-              type="password"
-              className="input input-bordered w-full max-w-xs"
+              type={showPassword ? 'text' : 'password'}
+              className="input input-bordered w-full bg-transparent text-white placeholder-gray-400 pr-12 focus:ring-2 focus:ring-red-400"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
             />
+            <span
+              className="absolute right-3 top-9 text-sm cursor-pointer text-yellow-400 hover:text-red-400 transition"
+              onClick={() => setShowPassword((v) => !v)}
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </span>
           </label>
 
-          <div className="card-actions">
-            <p className="text-red-500">{error}</p>
+          <div className="card-actions flex flex-col w-full mt-4">
+            <p className="text-red-400 text-sm">{error}</p>
             <button
-              className="btn btn-primary"
+              className="btn w-full mt-2 bg-red-500 hover:bg-red-600 text-white font-semibold tracking-wide transition"
               onClick={isLogin ? handleLogin : handleSignup}
             >
-              {isLogin ? "Login" : "Signup"}
+              {isLogin ? 'Login' : 'Signup'}
             </button>
           </div>
 
           <p
-            className=" cursor-pointer py-3"
-            onClick={() => setIsLogin((value) => !value)}
+            className="cursor-pointer pt-3 text-sm text-gray-300 hover:text-white transition"
+            onClick={() => setIsLogin((v) => !v)}
           >
-            {isLogin ? "New user? Signup Here" : "Existing user? Login Here"}
+            {isLogin ? 'New user? Signup here' : 'Existing user? Login here'}
           </p>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
