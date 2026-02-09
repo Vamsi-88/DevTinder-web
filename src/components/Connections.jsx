@@ -37,8 +37,8 @@ const Connections = () => {
         <h1 className="text-3xl font-bold mb-6">Connections</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
-            {connections.map(({ firstName, lastName, photoUrl, age, gender, about }) => (
-            <div key={firstName + lastName} className="card bg-base-100 shadow-xl">
+            {connections.map(({ _id,firstName, lastName, photoUrl, age, gender, about }) => (
+            <div key={_id} className="card bg-base-100 shadow-xl">
                 <figure className="px-4 pt-4">
                 <img alt="photo" src={photoUrl} className="rounded-xl w-32 h-32 object-cover" />
                 </figure>

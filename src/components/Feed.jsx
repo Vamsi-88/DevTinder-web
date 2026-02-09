@@ -26,10 +26,11 @@ const Feed = () => {
     getFeed();
   },[]);
 
+  if(!feed) return;
+
+  if(feed.length <= 0) return <h1 className='flex justify-center my-5'>No Feed Found!</h1>
+
   return (
-//    <div className='flex justify-center my-5'> 
-//  {feed?.length > 0 ? <UserCard user={feed[0]} /> : <p>Loading...</p>}
-//    </div>
     feed && (
       <div className='flex justify-center my-5'>
         <UserCard user={feed[0]}/>
